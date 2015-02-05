@@ -23,6 +23,8 @@
 
 #include <stdlib.h>
 #include <vector>
+#include <math.h>       /* round, floor, ceil, trunc */
+#include <iostream>     /* cout */
 
 using namespace std;
 
@@ -32,6 +34,8 @@ class algorithm {
 	public:
 		template<typename T>
 		static T min(vector<T>& i_vec);
+		template<typename T>
+		static size_t binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j);
 
 };
 
@@ -39,12 +43,34 @@ template<typename T>
 T algorithm::min(vector<T>& i_vec)
 {
 
-	T min = i_vec[0];
+	T* min = &i_vec[0];
 
 	for (size_t i=1; i<i_vec.size(); i++)
-		if (i_vec[i] < min) min = i_vec[i];
+		if (i_vec[i] < *min) min = &i_vec[i];
 
-	return min;
+	return *min;
+
+}
+
+template<typename T>
+size_t algorithm::binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j)
+{
+
+	if ( i > j ) return 0;
+	else {
+
+		size_t m = floor((i+j)/2);
+
+		if (i_vec[m] == v) return m;
+		else if (i_vec[m] < v) {
+			m = m + 1;
+			return binary_search(i_vec, v, m, j);
+		} else {
+			m = m - 1;
+			return binary_search(i_vec, v, i, m);
+		}
+
+	}
 
 }
 
