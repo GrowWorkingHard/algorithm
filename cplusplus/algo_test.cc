@@ -29,18 +29,25 @@ int main() {
 
 	vector<double> tmp_vec;
 
-	tmp_vec.push_back(0.8);
 	tmp_vec.push_back(2.0);
+	tmp_vec.push_back(0.8);
 	tmp_vec.push_back(5.5);
+	tmp_vec.push_back(1.8);
+	tmp_vec.push_back(1.0);
+	tmp_vec.push_back(5.4);
+	tmp_vec.push_back(7.0);
 
 	double min_value = algo::algorithm::min(tmp_vec);
 	printf("Min value: %f\n", min_value);
 
-	size_t dim = tmp_vec.size() - 1;
-	size_t dim1 = 0;
-	double val = 5.5;
-	size_t pos = algo::algorithm::binary_search(tmp_vec, val, dim1, dim);
-	printf("Position of 5.5: %zu\n", pos);
+	algo::algorithm::selection_sort(tmp_vec);
+
+	for (size_t i=0; i<tmp_vec.size(); i++) {
+
+		printf("Position %zu, value %f\n", i+1, tmp_vec[i]);
+
+	}
+
 	return 0;
 
 }

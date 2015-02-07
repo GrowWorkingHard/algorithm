@@ -35,7 +35,11 @@ class algorithm {
 		template<typename T>
 		static T min(vector<T>& i_vec);
 		template<typename T>
+		static size_t min(vector<T>& i_vec, size_t& start_index, size_t& end_index);
+		template<typename T>
 		static size_t binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j);
+		template<typename T>
+		static void selection_sort(vector<T>& i_vec);
 
 };
 
@@ -49,6 +53,18 @@ T algorithm::min(vector<T>& i_vec)
 		if (i_vec[i] < *min) min = &i_vec[i];
 
 	return *min;
+
+}
+
+template<typename T>
+size_t algorithm::min(vector<T>& i_vec, size_t& start_index, size_t& end_index)
+{
+
+	size_t min_index = start_index;
+	for (size_t i=start_index+1; i<end_index; i++)
+		if (i_vec[i] < i_vec[min_index]) min_index = i;
+
+	return min_index;
 
 }
 
@@ -69,6 +85,26 @@ size_t algorithm::binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j)
 			m = m - 1;
 			return binary_search(i_vec, v, i, m);
 		}
+
+	}
+
+}
+
+template<typename T>
+void algorithm::selection_sort(vector<T>& i_vec)
+{
+
+	T tmp_val;
+	size_t min_index;
+	size_t vec_dim = i_vec.size();
+
+	for (size_t i=0; i<vec_dim; i++) {
+
+		min_index = min(i_vec, i, vec_dim);
+
+		tmp_val = i_vec[i];
+		i_vec[i] = i_vec[min_index];
+		i_vec[min_index] = tmp_val;
 
 	}
 
