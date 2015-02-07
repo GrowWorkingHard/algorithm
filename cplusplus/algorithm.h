@@ -43,6 +43,12 @@ class algorithm {
 
 };
 
+/**
+ * @brief This function finds the minimum value contained in an array
+ *
+ * @param i_vec The vector to process
+ * @return min The minimum value contained in the input vector
+ */
 template<typename T>
 T algorithm::min(vector<T>& i_vec)
 {
