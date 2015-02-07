@@ -13,9 +13,6 @@
 //                                                                                    //
 // Follow our blog: <http://www.growworkinghard.wordpress.com>                        //
 //                                                                                    //
-// Author: francescoS                                                                 //
-// Date: 2015-02-03                                                                   //
-//                                                                                    //
 //************************************************************************************//
 
 #ifndef _ALGORITHM_H
@@ -30,27 +27,72 @@ using namespace std;
 
 namespace algo {
 
-class algorithm {
+/**
+ * @class Algorithm
+ * @brief
+ * 
+ * @ingroup cplusplus
+ * @author francescoS
+ * @date   2015-02-02
+ */
+class Algorithm {
 	public:
+
+		/**
+		 * @brief This function finds the minimum value contained in an array
+		 *
+		 * @param  i_vec The vector to process
+		 * @return min   The minimum value contained in the input vector
+		 */
 		template<typename T>
 		static T min(vector<T>& i_vec);
-		template<typename T>
-		static size_t min(vector<T>& i_vec, size_t& start_index, size_t& end_index);
+
+		/**
+		 * @brief This function finds the searched value in a sorted array
+		 *
+		 * @param  i_vec The sorted vector
+		 * @param  v     The searched value
+		 * @param  i     The index of the first element of the array
+		 * @param  j     The index of the last element of the array
+		 * @return m     The index of the search value
+		 */
 		template<typename T>
 		static size_t binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j);
+
+		/**
+		 * @brief This function
+		 *
+		 * @param i_vec The input vector
+		 */
 		template<typename T>
 		static void selection_sort(vector<T>& i_vec);
 
+	private:
+
+		/**
+		 * @brief Exchage the value between two elements
+		 *
+		 * @param elem_a The A element
+		 * @param elem_b The B element
+		 */
+		template<typename T>
+		static void exchage_value(T& elem_a, T& elem_b);
+
+		/**
+		 * @brief This function finds the minimum value contained in an part of the array
+		 *
+		 * @param  i_vec       The vector to process
+		 * @param  start_index Index of the first element of the sub-array
+		 * @param  end_index   Index of the last element of the sub-array
+		 * @return min_index   The index of minimum value contained in the sub part of the input vector
+		 */
+		template<typename T>
+		static size_t min(vector<T>& i_vec, size_t& start_index, size_t& end_index);
+
 };
 
-/**
- * @brief This function finds the minimum value contained in an array
- *
- * @param i_vec The vector to process
- * @return min The minimum value contained in the input vector
- */
 template<typename T>
-T algorithm::min(vector<T>& i_vec)
+T Algorithm::min(vector<T>& i_vec)
 {
 
 	T* min = &i_vec[0];
@@ -63,19 +105,7 @@ T algorithm::min(vector<T>& i_vec)
 }
 
 template<typename T>
-size_t algorithm::min(vector<T>& i_vec, size_t& start_index, size_t& end_index)
-{
-
-	size_t min_index = start_index;
-	for (size_t i=start_index+1; i<end_index; i++)
-		if (i_vec[i] < i_vec[min_index]) min_index = i;
-
-	return min_index;
-
-}
-
-template<typename T>
-size_t algorithm::binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j)
+size_t Algorithm::binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j)
 {
 
 	if ( i > j ) return 0;
@@ -97,25 +127,42 @@ size_t algorithm::binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j)
 }
 
 template<typename T>
-void algorithm::selection_sort(vector<T>& i_vec)
+void Algorithm::selection_sort(vector<T>& i_vec)
 {
 
-	T tmp_val;
 	size_t min_index;
 	size_t vec_dim = i_vec.size();
 
 	for (size_t i=0; i<vec_dim; i++) {
 
 		min_index = min(i_vec, i, vec_dim);
-
-		tmp_val = i_vec[i];
-		i_vec[i] = i_vec[min_index];
-		i_vec[min_index] = tmp_val;
+		exchage_value(i_vec[i], i_vec[min_index]);
 
 	}
 
 }
 
+template<typename T>
+void Algorithm::exchage_value(T& elem_a, T& elem_b)
+{
+
+	T tmp_val = elem_a;
+	elem_a = elem_b;
+	elem_b = tmp_val;
+
 }
 
+template<typename T>
+size_t Algorithm::min(vector<T>& i_vec, size_t& start_index, size_t& end_index)
+{
+
+	size_t min_index = start_index;
+	for (size_t i=start_index+1; i<end_index; i++)
+		if (i_vec[i] < i_vec[min_index]) min_index = i;
+
+	return min_index;
+
+}
+
+} // end of namespace
 #endif

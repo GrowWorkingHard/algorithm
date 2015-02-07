@@ -13,9 +13,6 @@
 //                                                                                    //
 // Follow our blog: <http://www.growworkinghard.wordpress.com>                        //
 //                                                                                    //
-// Author: francescoS                                                                 //
-// Date: 2015-02-03                                                                   //
-//                                                                                    //
 //************************************************************************************//
 
 #include <stdlib.h>
@@ -37,10 +34,10 @@ int main() {
 	tmp_vec.push_back(5.4);
 	tmp_vec.push_back(7.0);
 
-	double min_value = algo::algorithm::min(tmp_vec);
+	double min_value = algo::Algorithm::min(tmp_vec);
 	printf("Min value: %f\n", min_value);
 
-	algo::algorithm::selection_sort(tmp_vec);
+	algo::Algorithm::selection_sort(tmp_vec);
 
 	for (size_t i=0; i<tmp_vec.size(); i++) {
 
