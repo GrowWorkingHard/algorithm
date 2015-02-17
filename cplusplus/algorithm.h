@@ -47,6 +47,9 @@ class Algorithm {
 		template<typename T>
 		static void min(vector<T>& i_vec, T* min);
 
+		template<typename T>
+		static size_t binary_search(vector<T>& i_vec, T& v);
+
 		/**
 		 * @brief This function finds the searched value in a sorted array
 		 *
@@ -99,6 +102,16 @@ void Algorithm::min(vector<T>& i_vec, T* min)
 
 	for (size_t i=1; i<i_vec.size(); i++)
 		if (i_vec[i] < *min) *min = i_vec[i];
+
+}
+
+template<typename T>
+size_t Algorithm::binary_search(vector<T>& i_vec, T& v)
+{
+
+	size_t start = 0;
+	size_t end = i_vec.size();
+	return binary_search(i_vec, v, start, end);
 
 }
 

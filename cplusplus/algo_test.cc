@@ -32,20 +32,22 @@ int main() {
 	tmp_vec.push_back('a');
 	tmp_vec.push_back('s');
 	tmp_vec.push_back('z');
+	tmp_vec.push_back('f');
 	tmp_vec.push_back('n');
 
-	char* min_value = new char;
-	algo::Algorithm::min(tmp_vec, min_value);
-	printf("Min value: %c\n", *min_value);
+	// char* min_value = new char;
+	// algo::Algorithm::min(tmp_vec, min_value);
+	// printf("Min value: %c\n", *min_value);
 
-	delete min_value;
-	// algo::Algorithm::selection_sort(tmp_vec);
+	// delete min_value;
+	algo::Algorithm::selection_sort(tmp_vec);
 
-	// for (size_t i=0; i<tmp_vec.size(); i++)
-	// 	printf("Position %zu, value %c\n", i+1, tmp_vec[i]);
+	for (size_t i=0; i<tmp_vec.size(); i++)
+		printf("Position %zu, value %c\n", i+1, tmp_vec[i]);
 
-	// size_t f_index = algo::Algorithm::binary_search(tmp_vec, 'f', 0, tmp_vec.size());
-	// printf("f is in position %zu", f_index);
+	char c = 'f';
+	size_t f_index = algo::Algorithm::binary_search(tmp_vec, c);
+	printf("f is in position %zu", f_index);
 	return 0;
 
 }
