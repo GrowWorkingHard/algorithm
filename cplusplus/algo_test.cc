@@ -40,14 +40,14 @@ int main() {
 	// printf("Min value: %c\n", *min_value);
 
 	// delete min_value;
-	algo::Algorithm::selection_sort(tmp_vec);
+	algo::Algorithm<char>::selection_sort(tmp_vec);
 
 	for (size_t i=0; i<tmp_vec.size(); i++)
 		printf("Position %zu, value %c\n", i+1, tmp_vec[i]);
 
 	char c = 'f';
-	size_t f_index = algo::Algorithm::binary_search(tmp_vec, c);
-	printf("f is in position %zu", f_index);
+	size_t f_index = algo::Algorithm<char>::binary_search(tmp_vec, c);
+	printf("f is in position %zu\n", f_index+1);
 	return 0;
 
 }
