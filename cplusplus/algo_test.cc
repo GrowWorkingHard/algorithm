@@ -2,7 +2,7 @@
 //*          - GrowWorkingHard'script - www.growworkinghard.wordpress.com -          *//
 //************************************************************************************//
 //                                                                                    //
-// This file is a script writed to complete our blog's articles (all the external     //
+// This file is a script written to complete our blog's articles (all the external    //
 // reference can be found there). It's needed to explain better concepts and give     //
 // to the users an example or a reference.                                            //
 // We don't give you the warranty that is the best solution, but we do all the        //

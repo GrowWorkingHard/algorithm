@@ -2,7 +2,7 @@
 //*          - GrowWorkingHard'script - www.growworkinghard.wordpress.com -          *//
 //************************************************************************************//
 //                                                                                    //
-// This file is a script writed to complete our blog's articles (all the external     //
+// This file is a script written to complete our blog's articles (all the external    //
 // reference can be found there). It's needed to explain better concepts and give     //
 // to the users an example or a reference.                                            //
 // We don't give you the warranty that is the best solution, but we do all the        //
@@ -45,7 +45,7 @@ class Algorithm {
 		 * @param  i_vec The vector to process
 		 * @return min   The minimum value contained in the input vector
 		 */
-		static void min(vector<T>& i_vec, T* min)
+		static void min(const vector<T>& i_vec, T* min)
 		{
 
 			*min = i_vec[0];
@@ -55,7 +55,7 @@ class Algorithm {
 
 		}
 
-		static size_t binary_search(vector<T>& i_vec, T& v)
+		static size_t binary_search(const vector<T>& i_vec, const T& v)
 		{
 
 			size_t start = 0;
@@ -73,7 +73,7 @@ class Algorithm {
 		 * @param  j     The index of the last element of the array
 		 * @return m     The index of the search value
 		 */
-		static size_t binary_search(vector<T>& i_vec, T& v, size_t& i, size_t& j)
+		static size_t binary_search(const vector<T>& i_vec, const T& v, size_t& i, size_t& j)
 		{
 
 			if ( i > j ) return 0;
@@ -107,8 +107,8 @@ class Algorithm {
 
 			for (size_t i=0; i<vec_dim; i++) {
 
-				min_index = min(i_vec, i, vec_dim);
-				exchage_value(i_vec[i], i_vec[min_index]);
+				min_index = min(i_vec, &i, &vec_dim);
+				exchage_value(&i_vec[i], &i_vec[min_index]);
 
 			}
 
@@ -122,12 +122,12 @@ class Algorithm {
 		 * @param elem_a The A element
 		 * @param elem_b The B element
 		 */
-		static void exchage_value(T& elem_a, T& elem_b)
+		static void exchage_value(T* elem_a, T* elem_b)
 		{
 
-			T tmp_val = elem_a;
-			elem_a = elem_b;
-			elem_b = tmp_val;
+			T tmp_val = *elem_a;
+			*elem_a = *elem_b;
+			*elem_b = tmp_val;
 
 		}
 
@@ -139,11 +139,12 @@ class Algorithm {
 		 * @param  end_index   Index of the last element of the sub-array
 		 * @return min_index   The index of minimum value contained in the sub part of the input vector
 		 */
-		static size_t min(vector<T>& i_vec, size_t& start_index, size_t& end_index)
+		static size_t min(const vector<T>& i_vec, const size_t* start_index,
+				  const size_t* end_index)
 		{
 
-			size_t min_index = start_index;
-			for (size_t i=start_index+1; i<end_index; i++)
+			size_t min_index = *start_index;
+			for (size_t i=*start_index+1; i<*end_index; i++)
 				if (i_vec[i] < i_vec[min_index]) min_index = i;
 
 			return min_index;
