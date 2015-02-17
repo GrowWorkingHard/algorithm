@@ -30,7 +30,7 @@ namespace algo {
 /**
  * @class Algorithm
  * @brief
- * 
+ *
  * @ingroup cplusplus
  * @author francescoS
  * @date   2015-02-02
@@ -45,7 +45,7 @@ class Algorithm {
 		 * @return min   The minimum value contained in the input vector
 		 */
 		template<typename T>
-		static T min(vector<T>& i_vec);
+		static void min(vector<T>& i_vec, T* min);
 
 		/**
 		 * @brief This function finds the searched value in a sorted array
@@ -92,15 +92,13 @@ class Algorithm {
 };
 
 template<typename T>
-T Algorithm::min(vector<T>& i_vec)
+void Algorithm::min(vector<T>& i_vec, T* min)
 {
 
-	T* min = &i_vec[0];
+	*min = i_vec[0];
 
 	for (size_t i=1; i<i_vec.size(); i++)
-		if (i_vec[i] < *min) min = &i_vec[i];
-
-	return *min;
+		if (i_vec[i] < *min) *min = i_vec[i];
 
 }
 
