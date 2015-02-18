@@ -108,7 +108,7 @@ class Algorithm {
 			for (size_t i=0; i<vec_dim; i++) {
 
 				min_index = min(i_vec, &i, &vec_dim);
-				exchage_value(&i_vec[i], &i_vec[min_index]);
+				exchange_value(&i_vec[i], &i_vec[min_index]);
 
 			}
 
@@ -122,7 +122,7 @@ class Algorithm {
 		 * @param elem_a The A element
 		 * @param elem_b The B element
 		 */
-		static void exchage_value(T* elem_a, T* elem_b)
+		static void exchange_value(T* elem_a, T* elem_b)
 		{
 
 			T tmp_val = *elem_a;
