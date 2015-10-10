@@ -59,24 +59,10 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      *            input array containing the data to analyze
      * @param key
      *            the element to search
-     * @exception NullPointerException
-     *                if a param is null
      */
     public BinarySearch(final T[] i_vec, final T key) {
     
-        if (i_vec == null)
-            throw new NullPointerException("The input vector cannot be null");
-
-        if (key == null)
-            throw new NullPointerException("The input key cannot be null");
-
-        this.i_vec = i_vec;
-        this.key = key;
-
-        this.lo = 0;
-        this.hi = i_vec.length;
-
-        setParam = true;
+        setParam(i_vec, key, 0, i_vec.length);
 
     }
 
@@ -94,14 +80,7 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      */
     public BinarySearch(final T[] i_vec, final T key, final int lo, final int hi) {
 
-        validateState(i_vec, key, lo, hi);
-
-        this.i_vec = i_vec;
-        this.key = key;
-        this.lo = lo;
-        this.hi = hi;
-
-        setParam = true;
+        setParam(i_vec, key, lo, hi);
 
     }
 
@@ -189,6 +168,8 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
 
     /**
      * @brief This method is useful to validate the method arguments
+     * This method is a class invariant because it check the validity of the
+     * object's state.
      *
      * @param i_vec
      *            input array containing the data to analyze
