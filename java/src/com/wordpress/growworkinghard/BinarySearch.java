@@ -132,7 +132,7 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      *            the lower bound
      * @param hi
      *            the upper bound
-     * @return the position of the searched element (-1 if no element found)
+     * @return the position of the searched element (<code>-1</code> if no element found)
      */
     private int rank(final T[] i_vec, final T key, final int lo, final int hi) {
 
@@ -199,12 +199,18 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      * @param hi
      *            the upper bound
      * @exception NullPointerException
-     *                if the input vector <tt>i_vec</tt> or the
-     *                <tt>key</tt> are <code>null</code>
+     *                the exception is thrown if:
+     *                <ul>
+     *                <li>the input vector <tt>i_vec</tt> is
+     *                <code>null</code></li>
+     *                <li><tt>key</tt> is <code>null</code></li>
+     *                </ul>
      * @exception IllegalArgumentException
-     *                if the lower bound <tt>lo</tt> is less than
-     *                <code>0</code> or the upper bound <tt>hi</tt> is
-     *                greater than <code>i_vec.length</code>
+     *                the exception is thrown if:
+     *                <ul>
+     *                <li>the lower bound <tt>lo</tt> is less than <code>0</code></li>
+     *                <li>the upper bound <tt>hi</tt> is greater than <code>i_vec.length</code></li>
+     *                </ul>
      */
     private void validateAllInputArguments(final T[] i_vec, final T key, final int lo, final int hi) {
 
