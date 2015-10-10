@@ -94,7 +94,7 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      */
     public BinarySearch(final T[] i_vec, final T key, final int lo, final int hi) {
 
-        validateAllInputArguments(i_vec, key, lo, hi);
+        validateState(i_vec, key, lo, hi);
 
         this.i_vec = i_vec;
         this.key = key;
@@ -176,7 +176,7 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      */
     public void setParam(final T[] i_vec, final T key, final int lo, final int hi) {
 
-        validateAllInputArguments(i_vec, key, lo, hi);
+        validateState(i_vec, key, lo, hi);
 
         this.i_vec = i_vec;
         this.key = key;
@@ -212,7 +212,7 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      *                <li>the upper bound <tt>hi</tt> is greater than <code>i_vec.length</code></li>
      *                </ul>
      */
-    private void validateAllInputArguments(final T[] i_vec, final T key, final int lo, final int hi) {
+    private void validateState(final T[] i_vec, final T key, final int lo, final int hi) {
 
         if (i_vec == null)
             throw new NullPointerException("The input vector cannot be null");
