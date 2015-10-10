@@ -52,14 +52,24 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
 
     /**
      * @brief Constructor to use if you already have the sorted vector and key
-     * The lower bound and upper bound are respectively set to 0 and the length
-     * of the array.
+     *        The lower bound and upper bound are respectively set to 0 and the
+     *        length of the array.
      *
-     * @param i_vec input array containing the data to analyze
-     * @param key   the element to search
+     * @param i_vec
+     *            input array containing the data to analyze
+     * @param key
+     *            the element to search
+     * @exception NullPointerException
+     *                if a param is null
      */
     public BinarySearch(final T[] i_vec, final T key) {
     
+        if (i_vec == null)
+            throw new NullPointerException("The input vector cannot be null");
+
+        if (key == null)
+            throw new NullPointerException("The input key cannot be null");
+
         this.i_vec = i_vec;
         this.key = key;
 
@@ -73,12 +83,18 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
     /**
      * @brief Constructor to use if you know everything
      *
-     * @param i_vec input array containing the data to analyze
-     * @param key   the element to search
-     * @param lo    the lower bound
-     * @param hi    the upper bound
+     * @param i_vec
+     *            input array containing the data to analyze
+     * @param key
+     *            the element to search
+     * @param lo
+     *            the lower bound
+     * @param hi
+     *            the upper bound
      */
     public BinarySearch(final T[] i_vec, final T key, final int lo, final int hi) {
+
+        validateAllInputArguments(i_vec, key, lo, hi);
 
         this.i_vec = i_vec;
         this.key = key;
@@ -108,10 +124,14 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
     /**
      * @brief the binary search algorithm with recursion call
      *
-     * @param i_vec input array containing the data to analyze
-     * @param key   the element to search
-     * @param lo    the lower bound
-     * @param hi    the upper bound
+     * @param i_vec
+     *            input array containing the data to analyze
+     * @param key
+     *            the element to search
+     * @param lo
+     *            the lower bound
+     * @param hi
+     *            the upper bound
      * @return the position of the searched element (-1 if no element found)
      */
     private int rank(final T[] i_vec, final T key, final int lo, final int hi) {
@@ -156,12 +176,49 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      */
     public void setParam(final T[] i_vec, final T key, final int lo, final int hi) {
 
+        validateAllInputArguments(i_vec, key, lo, hi);
+
         this.i_vec = i_vec;
         this.key = key;
         this.lo = lo;
         this.hi = hi;
 
         setParam = true;
+
+    }
+
+    /**
+     * @brief This method is useful to validate the method arguments
+     *
+     * @param i_vec
+     *            input array containing the data to analyze
+     * @param key
+     *            the element to search
+     * @param lo
+     *            the lower bound
+     * @param hi
+     *            the upper bound
+     * @exception NullPointerException
+     *                if the input vector <tt>i_vec</tt> or the
+     *                <tt>key</tt> are <code>null</code>
+     * @exception IllegalArgumentException
+     *                if the lower bound <tt>lo</tt> is less than
+     *                <code>0</code> or the upper bound <tt>hi</tt> is
+     *                greater than <code>i_vec.length</code>
+     */
+    private void validateAllInputArguments(final T[] i_vec, final T key, final int lo, final int hi) {
+
+        if (i_vec == null)
+            throw new NullPointerException("The input vector cannot be null");
+
+        if (key == null)
+            throw new NullPointerException("The input key cannot be null");
+
+        if (lo < 0)
+            throw new IllegalArgumentException(lo + "is less than 0");
+
+        if (hi > i_vec.length)
+            throw new IllegalArgumentException(hi + "is greater than the length of the input vector");
 
     }
 
