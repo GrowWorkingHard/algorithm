@@ -122,6 +122,24 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @see Algorithm#setParam(T[],T,int,int)
+     */
+    public void setParam(final T[] i_vec, final T key, final int lo, final int hi) {
+
+        validateState(i_vec, key, lo, hi);
+
+        this.i_vec = i_vec;
+        this.key = key;
+        this.lo = lo;
+        this.hi = hi;
+
+        setParam = true;
+
+    }
+
+    /**
      * @brief the binary search algorithm with recursion call
      *
      * @param i_vec
@@ -167,24 +185,6 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
             }
 
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see Algorithm#setParam(T[],T,int,int)
-     */
-    public void setParam(final T[] i_vec, final T key, final int lo, final int hi) {
-
-        validateState(i_vec, key, lo, hi);
-
-        this.i_vec = i_vec;
-        this.key = key;
-        this.lo = lo;
-        this.hi = hi;
-
-        setParam = true;
-
     }
 
     /**
