@@ -59,10 +59,14 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      *            input array containing the data to analyze
      * @param key
      *            the element to search
+     * @throws IllegalArgumentException
      */
     public BinarySearch(final T[] i_vec, final T key) {
     
-        setParam(i_vec, key, 0, i_vec.length);
+        int lo = 0;
+        int hi = i_vec.length;
+
+        setParam(i_vec, key, lo, hi);
 
     }
 
@@ -107,12 +111,13 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      */
     public void setParam(final T[] i_vec, final T key, final int lo, final int hi) {
 
-        validateState(i_vec, key, lo, hi);
-
         this.i_vec = i_vec;
         this.key = key;
         this.lo = lo;
         this.hi = hi;
+
+        // verify the preconditions
+        validateState();
 
         setParam = true;
 
@@ -142,24 +147,29 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
         } else {
 
             // get the position at the half of the array
-            int m = (int) Math.floor((lo + hi)/2);
+            final int m = (int) Math.floor((lo + hi)/2);
 
             int cmp = i_vec[m].compareTo(key);
 
             if (cmp == 0) { // element found
 
                 setParam = false;
+                // verify the postconditions
+                assert hasValidState(): this;
                 return m;
 
             } else if (cmp < 0) { // element smaller than key
 
-                m += 1;
-                return rank(i_vec, key, m, hi);
+                // m += 1;
+                // verify the invariant state
+                assert hasValidState(): this;
+                return rank(i_vec, key, m+1, hi);
 
             } else { // element bigger than key
 
-                m -= 1;
-                return rank(i_vec, key, lo, m);
+                // verify the invariant state
+                assert hasValidState(): this;
+                return rank(i_vec, key, lo, m-1);
 
             }
 
@@ -169,7 +179,8 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
     /**
      * @brief This method is useful to validate the method arguments
      * This method is a class invariant because it check the validity of the
-     * object's state.
+     * object's state. At the same time, it works as preconditions and
+     * postconditions as well.
      *
      * @param i_vec
      *            input array containing the data to analyze
@@ -189,23 +200,135 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
      * @exception IllegalArgumentException
      *                the exception is thrown if:
      *                <ul>
-     *                <li>the lower bound <tt>lo</tt> is less than <code>0</code></li>
-     *                <li>the upper bound <tt>hi</tt> is greater than <code>i_vec.length</code></li>
+     *                <li>the lower bound <tt>lo</tt> is less than
+     *                <code>0</code></li>
+     *                <li>the upper bound <tt>hi</tt> is greater than
+     *                <code>i_vec.length</code></li>
+     *                <li>the lower bound <tt>lo</tt> is greater than the upper
+     *                bound <tt>hi</tt>
      *                </ul>
      */
-    private void validateState(final T[] i_vec, final T key, final int lo, final int hi) {
+    private void validateState() {
+
+        validateInputVector(i_vec);
+        validateKey(key);
+        validateLowerBound(lo);
+        validateUpperBound(hi, i_vec.length);
+        validateLowerUpperBounds(lo, hi);
+
+    }
+
+    /**
+     * @brief Method for assert verify
+     * Return true if <code>validateState</code> does not throw an
+     * <code>IllegalArgumentException</code>, otherwise return false
+     *
+     * @return the state of class invariant
+     */
+    private boolean hasValidState() {
+
+        boolean result = true;
+
+        try {
+            validateState();
+        } catch (IllegalArgumentException ex) {
+            result = false;
+        }
+
+        return result;
+    }
+
+    /**
+     * @brief Validate the input vector <tt>i_vec</tt>
+     *
+     *        If <tt>i_vec</tt> is null a <code>NullPointerException</code> is
+     *        thrown
+     *
+     * @param i_vec
+     *            the input vector
+     * @exception NullPointerException
+     *                if <tt>i_vec</tt> is null
+     */
+    private void validateInputVector(final T[] i_vec) {
 
         if (i_vec == null)
             throw new NullPointerException("The input vector cannot be null");
 
+    }
+
+    /**
+     * @brief Validate the searched <tt>key</tt>
+     *
+     *        If <tt>key</tt> is null a <code>NullPointerException</code> is
+     *        thrown
+     *
+     * @param key
+     *            the searched key
+     * @exception NullPointerException
+     *                if <tt>key</tt> is null
+     */
+    private void validateKey(final T key) {
+
         if (key == null)
             throw new NullPointerException("The input key cannot be null");
 
+    }
+
+    /**
+     * @brief Validate the lower bound <tt>lo</tt>
+     *
+     *        If <tt>lo</tt> is less than <code>0</code> an
+     *        <code>IllegalArgumentException</code> is thrown
+     *
+     * @param lo
+     *            the lower bound
+     * @exception IllegalArgumentException
+     *                if <tt>lo</tt> is less than 0
+     */
+    private void validateLowerBound(final int lo) {
         if (lo < 0)
             throw new IllegalArgumentException(lo + "is less than 0");
 
-        if (hi > i_vec.length)
+    }
+
+    /**
+     * @brief Validate the upper bound <tt>hi</tt>
+     *
+     *        If <tt>hi</tt> is greater than <code>vecLength</code> an
+     *        <code>IllegalArgumentException</code> is thrown
+     *
+     * @param hi
+     *            the upper bound
+     * @param vecLength
+     *            the length of the input vector
+     * @exception IllegalArgumentException
+     *                if <tt>hi</tt> is greater than the length of the input
+     *                vector
+     */
+    private void validateUpperBound(final int hi, final int vecLength) {
+
+        if (hi > vecLength)
             throw new IllegalArgumentException(hi + "is greater than the length of the input vector");
+
+    }
+
+    /**
+     * @brief Validate both the lower and the upper bound
+     *
+     *        If <tt>lo</tt> is greater than <tt>hi</tt> an
+     *        <code>IllegalArgumentException</code> is thrown
+     *
+     * @param lo
+     *            the lower bound
+     * @param hi
+     *            the upper bound
+     * @exception IllegalArgumentException
+     *                if <tt>lo</tt> is greater than <tt>hi</tt>
+     */
+    private void validateLowerUpperBounds(final int lo, final int hi) {
+
+        if (lo > hi)
+            throw new IllegalArgumentException("The lower bound " + lo + " is greater than the upper bound " + hi);
 
     }
 
@@ -218,18 +341,12 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<T> {
         test[3] = 'k';
         test[4] = 's';
 
-        System.out.println(test.toString());
         System.out.println("First test: looking for key g"); 
         Algorithm<Character> binsearch = new BinarySearch<Character>(test, 'g', 0, test.length);
         int pos = binsearch.rank();
         System.out.println(pos);
 
-        pos = binsearch.rank();
-
-        binsearch.setParam(test, 'd', 2, test.length);
-        pos = binsearch.rank();
-        System.out.println(pos);
- 
+        System.out.println("Second test: looking for key d");
         binsearch.setParam(test, 'd', 0, test.length/2);
         pos = binsearch.rank();
         System.out.println(pos);
